@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari_seedseg-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari_seedseg-{{ version }}.tar.gz
   sha256: df3e58dc5618fbd4bb95da20a48c62b42922a02682c692a33cee5d68e623d5a6
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
   run:
     - magicgui
     - napari
     - numpy
     - opencv
-    - python >=3.8
+    - python >={{ python_min }}
     - qtpy
     - scikit-image >=0.19.3
 
@@ -35,6 +35,7 @@ test:
     # - pip check  # Fails due to opencv-python-headless
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/rezaakb/napari-seedseg
